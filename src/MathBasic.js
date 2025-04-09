@@ -1,57 +1,30 @@
 const MathBasic = {
-  add: (...args) => {
+  _validateArgs(args) {
     if (args.length !== 2) {
-      throw new Error('add function should only takes two params');
+      throw new Error('fungsi hanya menerima dua parameter');
     }
 
     const [a, b] = args;
 
     if (typeof a !== 'number' || typeof b !== 'number') {
-      throw new Error('add function only takes type number');
+      throw new Error('fungsi hanya menerima parameter number');
     }
-
+    return args;
+  },
+  add(...args) {
+    const [a, b] = this._validateArgs(args);
     return a + b;
   },
-
-  subtract: (...args) => {
-    if (args.length !== 2) {
-      throw new Error('add function should only takes two params');
-    }
-
-    const [a, b] = args;
-
-    if (typeof a !== 'number' || typeof b !== 'number') {
-      throw new Error('add function only takes type number');
-    }
-
+  subtract(...args) {
+    const [a, b] = this._validateArgs(args);
     return a - b;
   },
-
-  multiply: (...args) => {
-    if (args.length !== 2) {
-      throw new Error('add function should only takes two params');
-    }
-
-    const [a, b] = args;
-
-    if (typeof a !== 'number' || typeof b !== 'number') {
-      throw new Error('add function only takes type number');
-    }
-
+  multiply(...args) {
+    const [a, b] = this._validateArgs(args);
     return a * b;
   },
-
-  divide: (...args) => {
-    if (args.length !== 2) {
-      throw new Error('add function should only takes two params');
-    }
-
-    const [a, b] = args;
-
-    if (typeof a !== 'number' || typeof b !== 'number') {
-      throw new Error('add function only takes type number');
-    }
-
+  divide(...args) {
+    const [a, b] = this._validateArgs(args);
     return a / b;
   },
 };
