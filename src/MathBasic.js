@@ -1,11 +1,23 @@
 const MathBasic = {
-  add: function add() {},
+  add: (...args) => {
+    if (args.length !== 2) {
+      throw new Error('add function should only takes two params');
+    }
 
-  subtract: function subtract() {},
+    const [a, b] = args;
 
-  multiply: function multiply() {},
+    if (typeof a !== 'number' || typeof b !== 'number') {
+      throw new Error('add function only takes type number');
+    }
 
-  divide: function divide() {},
+    return a + b;
+  },
+
+  subtract: () => {},
+
+  multiply: () => {},
+
+  divide: () => {},
 };
 
 module.exports = MathBasic;
