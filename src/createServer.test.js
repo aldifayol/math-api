@@ -99,13 +99,82 @@ describe('An HTTP server', () => {
         method: 'GET',
         url: `/calc/perimeter/rectangle/${length}/${width}`,
       });
-      console.log(response.payload);
 
       // assert
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(200);
       expect(responseJson.value).toEqual(48);
       expect(spyCalcRectanglePerimeter).toBeCalledWith(length, width);
+    });
+  });
+
+  describe('when GET /calc/area/rectangle', () => {
+    it('should respond with a status code of 200 and the payload value of a correct triangle perimeter math', async () => {
+      // arrange
+      const length = 10;
+      const width = 14;
+      const figureCalculator = new FigureCalculator(MathBasic);
+      const spyCalcRectangleArea = jest.spyOn(figureCalculator, 'calculateRectangleArea');
+      const server = createServer({ figureCalculator });
+
+      // action
+      const response = await server.inject({
+        method: 'GET',
+        url: `/calc/area/rectangle/${length}/${width}`,
+      });
+
+      // assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.value).toEqual(140);
+      expect(spyCalcRectangleArea).toBeCalledWith(length, width);
+    });
+  });
+
+  describe('when GET /calc/perimeter/triangle', () => {
+    it('should respond with a status code of 200 and the payload value of a correct triangle perimeter math', async () => {
+      // arrange
+      const base = 15;
+      const sideA = 13;
+      const sideB = 14;
+      const figureCalculator = new FigureCalculator(MathBasic);
+      const spyCalcTrianglePerimeter = jest.spyOn(figureCalculator, 'calculateTrianglePerimeter');
+      const server = createServer({ figureCalculator });
+
+      // action
+      const response = await server.inject({
+        method: 'GET',
+        url: `/calc/perimeter/triangle/${base}/${sideA}/${sideB}`,
+      });
+
+      // assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.value).toEqual(42);
+      expect(spyCalcTrianglePerimeter).toBeCalledWith(base, sideA, sideB);
+    });
+  });
+
+  describe('when GET /calc/area/triangle', () => {
+    it('should respond with a status code of 200 and the payload value of a correct triangle area math', async () => {
+      // arrange
+      const base = 10;
+      const height = 8;
+      const figureCalculator = new FigureCalculator(MathBasic);
+      const spyCalcTriangleArea = jest.spyOn(figureCalculator, 'calculateTriangleArea');
+      const server = createServer({ figureCalculator });
+
+      // action
+      const response = await server.inject({
+        method: 'GET',
+        url: `/calc/area/triangle/${base}/${height}`,
+      });
+
+      // assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.value).toEqual(40);
+      expect(spyCalcTriangleArea).toBeCalledWith(base, height);
     });
   });
 });
